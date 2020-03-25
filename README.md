@@ -3,13 +3,13 @@ This is a sample app of using mvvm pattern in kotlin.
 
 
 ## Add the below dependencies in your app level build.gradle file
-```
+```gradle
 implementation "android.arch.lifecycle:extensions:1.1.1"
 annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 ```
 
 ## Create a Repository class where we fetch data from API or DB
-```
+```kotlin
 object UserRepository {
 
     fun getMutableLiveData(context: Context) : MutableLiveData<ArrayList<User>>{
@@ -42,7 +42,7 @@ object UserRepository {
 ```
 
 ## Create a ViewModel class to handle data
-```
+```kotlin
 class UserViewModel(private val context: Context) : ViewModel() {
 
     private var listData = MutableLiveData<ArrayList<User>>()
@@ -64,7 +64,7 @@ class UserViewModel(private val context: Context) : ViewModel() {
 ```
 
 ## Create a ViewModelFactory class to pass custom arguments with ViewModel
-```
+```kotlin
 class UserViewModelFactory(private val context: Context) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -75,7 +75,7 @@ class UserViewModelFactory(private val context: Context) : ViewModelProvider.New
 ```
 
 ## Usage
-```
+```kotlin
 val userViewModel = ViewModelProviders.of(this,UserViewModelFactory(this)).get(UserViewModel::class.java)
 userViewModel.getData().observe(this,object:Observer<ArrayList<User>>{
      override fun onChanged(t: ArrayList<User>?) {
